@@ -1,23 +1,26 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "strict": true,
-    "noImplicitAny": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "skipLibCheck": true,
-    "lib": [
-      "DOM",
-      "ES2022"
-    ],
-    "types": [
-      "chrome"
-    ],
-    "outDir": "dist"
+  "name": "focus-lens",
+  "version": "1.0.0",
+  "description": "A Chrome extension that creates a reading spotlight by dimming everything except the hovered paragraph.",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "keywords": [
+    "chrome-extension",
+    "typescript",
+    "webpack",
+    "productivity"
+  ],
+  "author": "Aparna Gupta",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.1.28",
+    "copy-webpack-plugin": "^13.0.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1"
+  }
 }
