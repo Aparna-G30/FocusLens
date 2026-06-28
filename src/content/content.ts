@@ -38,8 +38,9 @@ function updateFocus(target: Element): void {
     return;
   }
 
-  lastFocused = readingUnit;
+
   highlight(readingUnit);
+  lastFocused = readingUnit;
 }
 
 function handleMouseOver(event: MouseEvent): void {
@@ -62,3 +63,62 @@ function handleFocusIn(event: FocusEvent): void {
   updateFocus(target);
 }
 
+function handleMessage(
+  message: ContentMessage,
+  _sender: chrome.runtime.MessageSender,
+  sendResponse: (response?: unknown) => void
+): void {
+  switch (message.type) {
+    case "TOGGLE":
+      armed = !armed;
+
+      if (armed && settings.enabled) {
+        attach(settings.dimOpacity);
+      } else {
+        detach();
+        lastFocused = null;
+      }
+
+      break;
+
+    case "UPDATE_SETTINGS":
+      settings = message.settings;
+
+      if (settings.enabled && armed) {
+        attach(settings.dimOpacity);
+        setDimOpacity(settings.dimOpacity);
+      } else {
+        detach();
+        lastFocused = null;
+      }
+
+      break;
+  }
+
+  sendResponse({ success: true });
+}
+
+type ContentMessage =
+  | {
+      type: "TOGGLE";
+    }
+  | {
+      type: "UPDATE_SETTINGS";
+      settings: Settings;
+    };
+
+chrome.runtime.onMessage.addListener(handleMessage);
+
+async function initialize(): Promise<void> {
+  await loadSettings();
+
+  document.addEventListener("mouseover", handleMouseOver);
+
+  document.addEventListener("focusin", handleFocusIn);
+
+  chrome.runtime.onMessage.addListener(handleMessage);
+}
+
+initialize().catch((error) => {
+  console.error("FocusLens failed to initialize:", error);
+});
