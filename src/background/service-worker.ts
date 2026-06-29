@@ -1,19 +1,24 @@
-chrome.commands.onCommand.addListener(async (command) => {
-  if (command !== "toggle-focuslens") {
-    return;
-  }
+console.log("🚀 FocusLens service worker loaded");
 
-  const [tab] = await chrome.tabs.query({
-    active: true,
-    currentWindow: true,
-  });
+chrome.runtime.onMessage.addListener(async(message)=>
+{
+        console.log("Service worker received:",message);
 
-  if (!tab?.id) {
-    return;
-  }
+        if(message.type!=="TOGGLE"){
+            return;
+        }
 
-  chrome.tabs.sendMessage(tab.id, {
-    type: "TOGGLE",
-  });
+        const [tab]=await chrome.tabs.query({
+            active: true,
+            currentWindow: true,
+        });
+
+        if(!tab?.id){
+            return;
+        }
+
+        chrome.tabs.sendMessage(tab.id, {
+            type: "TOGGLE"
+        });
+        
 });
-

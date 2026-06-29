@@ -1,58 +1,22 @@
 {
   "manifest_version": 3,
   "name": "FocusLens",
-  "description": "Dim everything except the paragraph you're reading.",
-  "version": "1.0.0",
+  "version": "2.0.0",
 
-  "permissions": [
-    "storage",
-    "activeTab",
-    "tabs"
-  ],
-
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "permissions": ["storage"],
 
   "background": {
-    "service_worker": "background/service-worker.js",
-    "type": "module"
+    "service_worker": "background.js"
   },
 
   "action": {
-    "default_popup": "popup/popup.html",
-    "default_title": "FocusLens",
-    "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    }
+    "default_popup": "popup.html"
   },
 
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content/content.js"
-      ],
-      "run_at": "document_idle"
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
     }
-  ],
-
-  "commands": {
-    "toggle-focuslens": {
-      "suggested_key": {
-        "default": "Alt+F"
-      },
-      "description": "Toggle FocusLens"
-    }
-  },
-
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  }
+  ]
 }
