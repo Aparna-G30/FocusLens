@@ -16,7 +16,7 @@ const BLOCK_TAGS = new Set([
   "DD",
 ]);
 
-export function findReadingUnit(target: Element): Element | null {
+export function findReadingUnit(target: Element): Element {
   let current: Element | null = target;
 
   while (current && current !== document.body) {
@@ -27,5 +27,5 @@ export function findReadingUnit(target: Element): Element | null {
     current = current.parentElement;
   }
 
-  return null;
+  return target;
 }
