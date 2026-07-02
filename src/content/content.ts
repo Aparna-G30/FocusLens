@@ -24,6 +24,10 @@ function updateFocus(target: Element): void {
 
     const readingUnit = findReadingUnit(target);
 
+    if (readingUnit === lastFocused) {
+        return;
+    }
+    
     lastFocused = readingUnit;
 
     moveOverlay(readingUnit);
