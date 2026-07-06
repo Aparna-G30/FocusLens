@@ -16,6 +16,27 @@ import{
 
 chrome.runtime.onMessage.addListener(handleMessage);
 
+// function shouldIgnore(target: Element): boolean {
+
+//     if (target.closest(".mwe-popups")) {
+//         return true;
+//     }
+
+//     if (target.closest(".tooltip")) {
+//         return true;
+//     }
+
+//     if (target.closest("[role='tooltip']")) {
+//         return true;
+//     }
+
+//     if (target.closest("[role='dialog']")) {
+//         return true;
+//     }
+
+//     return false;
+// }
+
 function updateFocus(target: Element): void {
 
     if (!armed) {
@@ -24,22 +45,32 @@ function updateFocus(target: Element): void {
 
     const readingUnit = findReadingUnit(target);
 
+    if (!readingUnit) {
+        return;
+    }
+
     if (readingUnit === lastFocused) {
         return;
     }
-    
+
     lastFocused = readingUnit;
 
     moveOverlay(readingUnit);
+    console.log(target.tagName);
+    console.log(readingUnit.tagName);
 }
 
-function handleMouseOver(event: MouseEvent): void{
+function handlePointerMove(event: MouseEvent): void{
     const target=event.target;
 
     if(!(target instanceof Element))
     {
         return;
     }
+
+    // if (shouldIgnore(target)) {
+    //     return;
+    // }
 
     updateFocus(target);
 }
@@ -60,7 +91,7 @@ async function initialize(): Promise<void> {
         hideOverlay();
     }
 
-    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("pointermove", handlePointerMove);
 
 }
 
