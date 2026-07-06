@@ -52,9 +52,9 @@ function updateButton(
 ): void {
 
     if (enabled) {
-        button.textContent = "Disable FocusLens";
+        button.textContent = "Disable";
     } else {
-        button.textContent = "Enable FocusLens";
+        button.textContent = "Enable";
     }
 
 }
