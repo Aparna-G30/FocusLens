@@ -34,10 +34,8 @@ body {
     margin-bottom: 16px;
 } */
 
-.divider {
-    height: 1px;
-    background: #E5E7EB;
-    margin: 16px 0;
+.divider{
+    display:none;
 }
 
 .toggle-row {
@@ -130,6 +128,14 @@ h1{
     text-align:center;
     color:#6B7280;
     font-size:15px;
+}
+
+.card{
+    background:#F9FAFB;
+    border:1px solid #E5E7EB;
+    border-radius:16px;
+    padding:16px;
+    margin:18px 0;
 }
 
 @media (prefers-color-scheme: dark) {
