@@ -51,10 +51,6 @@ function updateButton(
     enabled: boolean
 ): void {
 
-    if (enabled) {
-        button.textContent = "Disable";
-    } else {
-        button.textContent = "Enable";
-    }
+    button.classList.toggle("active", enabled);
 
 }
