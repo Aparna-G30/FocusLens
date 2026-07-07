@@ -2,6 +2,7 @@
   "manifest_version": 3,
   "name": "FocusLens",
   "version": "1.0.0",
+  "description": "A magical reading companion that highlights the paragraph you're reading, helping you stay focused on any webpage.",
 
   "permissions": ["storage"],
 
